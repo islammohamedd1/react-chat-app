@@ -1,0 +1,14 @@
+{
+    "users": [
+        {
+            "username": "islam",
+            "isAvailable": false
+        },
+        {
+
+            "username": "Ahmed",
+            "isAvailable": false
+        }
+    ],
+    "messages": [ ]
+}
