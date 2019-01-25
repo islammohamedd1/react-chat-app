@@ -1,6 +1,17 @@
 import React from 'react';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import { createMuiTheme } from '@material-ui/core/styles';
 import Login from "./login/login";
 import Home from './Home/Home';
+
+const theme = createMuiTheme({
+  palette: {
+    type: 'light',
+  },
+  typography: {
+    useNextVariants: true,
+  },
+});
 
 class App extends React.Component {
 
@@ -9,7 +20,7 @@ class App extends React.Component {
 
         this.state = {
             loggedIn: false,
-            user: null,
+            username: null,
         }
 
         this.login = this.login.bind(this);
@@ -18,7 +29,7 @@ class App extends React.Component {
     login(username) {
         this.setState({
             loggedIn: true,
-            user: username
+            username: username
         })
     }
 
@@ -32,12 +43,16 @@ class App extends React.Component {
         }
         else {
             return (
-                <Home />
+                <Home username={this.state.username} />
             )
         }
     }
     render() {
-        return (this.renderPage())
+        return (
+            <MuiThemeProvider theme={theme}>
+                {this.renderPage()}
+            </MuiThemeProvider>
+            )
     }
 }
 

@@ -1,8 +1,19 @@
 import React from 'react';
+import { withStyles } from '@material-ui/core/styles'
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Snackbar from '@material-ui/core/Snackbar';
+import {SnackbarContent} from '@material-ui/core';
+import red from '@material-ui/core/colors/red';
 import "./login.css";
 
 import * as Data from "../../db.json"
-console.log(Data.users[0]);
+
+const styles = theme => ({
+  error: {
+    backgroundColor: theme.palette.error.dark,
+  }
+});
 
 class Login extends React.Component {
     constructor(props) {
@@ -14,6 +25,8 @@ class Login extends React.Component {
 
         this.handleInput = this.handleInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+        this.handleSnackbarClose = this.handleSnackbarClose.bind(this);
     }
 
     handleInput(e) {
@@ -23,7 +36,7 @@ class Login extends React.Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault();
+        // e.preventDefault();
         let result;
         result = Data.users.filter((user) => user.username === this.state.username);
         if (result.length !== 0) {
@@ -34,24 +47,44 @@ class Login extends React.Component {
         }
     }
 
-    renderError() {
-        if (this.state.error === true) {
-            return (
-                <div className="Error">Invalid username entered</div>
-            )
+    handleKeyPress(e) {
+        if (e.key === 'Enter') {
+            this.handleSubmit();
         }
     }
 
+    handleSnackbarClose() {
+        this.setState({error: false});
+    }
+
     render() {
+        const snackbarStyles = {
+            backgroundColor: red[800],
+            color: "#fff",
+        }
+
+        const { classes } = this.props;
         return (
             <div className="login-container">
-                {this.renderError()}
                 <h3>Please enter your username</h3>
-                <input value={this.state.username} onChange={this.handleInput} placeholder="Username"/>
-                <button type="submit" onClick={this.handleSubmit}>Log in</button>
+                <TextField
+                    placeholder="Username"
+                    value={this.state.username}
+                    onChange={this.handleInput}
+                    onKeyPress={this.handleKeyPress}
+                />
+                <br />
+                <Button variant={"contained"} onClick={this.handleSubmit}>Login</Button>
+                <Snackbar
+                    anchorOrigin={{vertical: 'bottom',horizontal: 'left'}}
+                    open={this.state.error}
+                    onClose={this.handleSnackbarClose}
+                >
+                    <SnackbarContent className={classes.error} message={"Wrong password entered"} />
+                </Snackbar>
             </div>
         )
     }
 }
 
-export default Login;
+export default withStyles(styles)(Login);

@@ -6,9 +6,35 @@
         },
         {
 
-            "username": "Ahmed",
+            "username": "ahmed",
+            "isAvailable": false
+        },
+        {
+
+            "username": "mohamed",
             "isAvailable": false
         }
     ],
-    "messages": [ ]
+    "chats": [
+        {
+            "id": 1,
+            "participants": ["islam", "ahmed"],
+            "messages": [
+                {
+                    "from": "islam",
+                    "content": "Hello there!",
+                    "date": "2019-01-25 00:14:05"
+                },
+                {
+                    "from": "ahmed",
+                    "content": "Hiii!",
+                    "date": "2019-01-25 00:15:01"
+                }
+            ]
+        }
+    ],
+    "friends": [
+        ["islam", "ahmed"],
+        ["islam", "mohamed"]
+    ]
 }
