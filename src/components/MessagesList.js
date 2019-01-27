@@ -4,10 +4,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
-import SendIcon from '@material-ui/icons/Send';
-import PersonIcon from '@material-ui/icons/Person';
+import ChatIcon from '@material-ui/icons/Chat';
 
 
 const styles = theme => ({
@@ -32,10 +29,10 @@ class MessagesList extends React.Component {
         
         <MenuList>
 
-            {this.props.chats.map(chat => (
-                <MenuItem key={chat.participants[0]} className={classes.menuItem}>
-                    <ListItemIcon className={classes.icon} onClick={this.props.openChat(chat.id)} >
-                        <PersonIcon />
+            {this.props.chats.map((chat, i) => (
+                <MenuItem key={chat.participants[0]} className={classes.menuItem} onClick={() => this.props.setCurrentChat(chat.id)}>
+                    <ListItemIcon className={classes.icon}>
+                        <ChatIcon />
                     </ListItemIcon>
                     <ListItemText classes={{ primary: classes.primary }} inset primary={chat.participants[0]} />
                 </MenuItem>

@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import {SnackbarContent} from '@material-ui/core';
-import red from '@material-ui/core/colors/red';
 import "./login.css";
 
 import * as Data from "../../db.json"
@@ -58,11 +57,6 @@ class Login extends React.Component {
     }
 
     render() {
-        const snackbarStyles = {
-            backgroundColor: red[800],
-            color: "#fff",
-        }
-
         const { classes } = this.props;
         return (
             <div className="login-container">

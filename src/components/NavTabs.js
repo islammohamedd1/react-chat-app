@@ -75,6 +75,7 @@ class NavTabs extends React.Component {
                 className={classes.tabsContainer}
                 chats={this.props.chats}
                 openChat={this.props.openChat}
+                setCurrentChat={this.props.setCurrentChat}
             />
           </TabContainer>
           <TabContainer dir={theme.direction}>

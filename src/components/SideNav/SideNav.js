@@ -1,23 +1,17 @@
 import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import NavTabs from '../NavTabs';
 
-const drawerWidth = 300;
+const drawerWidth = Number(process.env.REACT_APP_DRAWER_WIDTH);
+console.log(drawerWidth);
 
 const styles = theme => ({
   root: {
@@ -77,6 +71,7 @@ class SideNav extends React.Component {
             chats={this.props.chats}
             friends={this.props.friends}
             openChat={this.props.openChat}
+            setCurrentChat={this.props.setCurrentChat}
           />          
         </div>
       );
@@ -95,7 +90,7 @@ class SideNav extends React.Component {
                 <MenuIcon />
               </IconButton>
               {/* <Typography variant="h6" color="inherit" noWrap> */}
-              <Typography color="inherit" align="center" className={classes.title} variant={"headline"}>Chat - App</Typography>
+              <Typography color="inherit" align="center" className={classes.title} variant={"h3"}>Chat - App</Typography>
               {/* </Typography> */}
             </Toolbar>
           </AppBar>
@@ -127,6 +122,7 @@ class SideNav extends React.Component {
               </Drawer>
             </Hidden>
           </nav>
+          
         </div>
       );
     }

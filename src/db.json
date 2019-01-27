@@ -23,12 +23,43 @@
                 {
                     "from": "islam",
                     "content": "Hello there!",
-                    "date": "2019-01-25 00:14:05"
+                    "date": "2019-01-25 00:14"
                 },
                 {
                     "from": "ahmed",
                     "content": "Hiii!",
-                    "date": "2019-01-25 00:15:01"
+                    "date": "2019-01-25 00:15"
+                },
+                {
+                    "from": "islam",
+                    "content": "How's it going",
+                    "date": "2019-01-25 00:15"
+                },
+                {
+                    "from": "ahmed",
+                    "content": "cool!",
+                    "date": "2019-01-25 00:15"
+                },
+                {
+                    "from": "islam",
+                    "content": "nice to here that!",
+                    "date": "2019-01-25 00:15"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "participants": ["islam", "mohamed"],
+            "messages": [
+                {
+                    "from": "islam",
+                    "content": "Aloha there!",
+                    "date": "2019-01-25 00:14"
+                },
+                {
+                    "from": "mohamed",
+                    "content": "Hiii!",
+                    "date": "2019-01-25 00:15"
                 }
             ]
         }
