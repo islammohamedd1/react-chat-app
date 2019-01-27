@@ -28,8 +28,10 @@ class Home extends React.Component {
         super(props);
 
         this.state = {
-            currentChat: null
+            currentChat: null,
+            participant: null,
         }
+        this.getChat = this.getChat.bind(this);
     }
 
     getInbox = () => {
@@ -58,8 +60,10 @@ class Home extends React.Component {
 
     getChat = chatID => {
         let chat = DB.chats.filter(c => c.id === chatID)[0];
-        
         chat.participants = chat.participants.filter(p => p !== this.username);
+    
+        
+
         return chat;
     }
 
@@ -70,7 +74,6 @@ class Home extends React.Component {
         const { classes } = this.props;
         let currentChat;
         if (this.state.currentChat) {
-            this.getChat(this.state.currentChat)
             currentChat = this.getChat(this.state.currentChat);
         } else {
             currentChat = null;
@@ -82,6 +85,7 @@ class Home extends React.Component {
                     friends={friends}
                     openChat={this.openChat}
                     setCurrentChat={this.setCurrentChat}
+                    participant={currentChat ? currentChat.participants[0] : ''}
                 />
                 <main className={classes.content}>
                     <div className={classes.toolbar} />

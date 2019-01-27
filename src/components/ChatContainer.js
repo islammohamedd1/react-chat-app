@@ -34,28 +34,10 @@ class ChatContainer extends React.Component {
         }
     }
 
-    renderBar = () => {
-        const { chat } = this.props;
-        if (this.props.chat) {
-            for (let i = 0; i < chat.participants.length; i++) {
-                if (chat.participants[i] !== this.props.username) {
-                    return (
-                        <AppBar position="static" color={"default"}>
-                            <Toolbar>
-                                <Typography variant="h6" color="inherit">{chat.participants[i]}</Typography>
-                            </Toolbar>
-                        </AppBar>
-                    );
-                }
-            }
-        }
-    }
-
     render() {
         const { classes } = this.props;
         return (
             <div>
-                {this.renderBar()}
                 <div className={classes.container}>
                     {this.renderMessages()}
                 </div>

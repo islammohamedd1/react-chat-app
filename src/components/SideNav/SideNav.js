@@ -9,6 +9,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import NavTabs from '../NavTabs';
+import { Divider } from '@material-ui/core';
 
 const drawerWidth = Number(process.env.REACT_APP_DRAWER_WIDTH);
 console.log(drawerWidth);
@@ -67,6 +68,12 @@ class SideNav extends React.Component {
       const { classes, theme } = this.props;
       const drawer = (
         <div>
+          <AppBar position="static" color="primary">
+              <Toolbar>
+                  <Typography variant="h6" color="inherit">Chat - APP</Typography>
+              </Toolbar>
+          </AppBar>
+          <Divider />
           <NavTabs
             chats={this.props.chats}
             friends={this.props.friends}
@@ -90,7 +97,7 @@ class SideNav extends React.Component {
                 <MenuIcon />
               </IconButton>
               {/* <Typography variant="h6" color="inherit" noWrap> */}
-              <Typography color="inherit" align="center" className={classes.title} variant={"h3"}>Chat - App</Typography>
+              <Typography color="inherit" align="center" className={classes.title} variant='h6'>{this.props.participant}</Typography>
               {/* </Typography> */}
             </Toolbar>
           </AppBar>
