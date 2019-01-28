@@ -4,7 +4,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import Login from "./login/login";
 import Home from './Home/Home';
 
-
+import * as firebase from 'firebase';
 
 const theme = createMuiTheme({
   palette: {
@@ -21,31 +21,28 @@ class App extends React.Component {
         super(props);
 
         this.state = {
-            loggedIn: false,
-            username: null,
+            user: null,
         }
 
-        this.login = this.login.bind(this);
+        this.setUser = this.setUser.bind(this);
     }
 
-    login(username) {
+    setUser() {
         this.setState({
-            loggedIn: true,
-            username: username
+            user: firebase.auth().currentUser,
         })
+        console.log(this.state.user);
     }
 
     renderPage() {
-        if (this.state.loggedIn === false) {
+        if (this.state.user) {
             return (
-                <Login
-                    login={this.login}
-                />
+                <Home />
             )
         }
         else {
             return (
-                <Home username={this.state.username} />
+                <Login setUser={this.setUser} />
             )
         }
     }

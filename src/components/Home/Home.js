@@ -4,10 +4,12 @@ import * as DB from '../../db.json';
 import { withStyles } from '@material-ui/core';
 import ChatContainer from '../ChatContainer';
 
+import * as firebase from 'firebase';
+
 const styles = theme => ({
-    home: {
-        height: '100%',
-    },
+  home: {
+    height: '100%',
+  },
   content: {
     // flexGrow: 1,
     [theme.breakpoints.up('sm')]: {

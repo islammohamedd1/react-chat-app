@@ -13,6 +13,7 @@ const styles = theme => ({
         borderRadius: 25,
     },
     message: {
+        marginTop: theme.spacing.unit,
         marginBottom: theme.spacing.unit,
     },
     primary: {
