@@ -1,8 +1,8 @@
 import React from 'react';
-import SideNav from '../SideNav/SideNav';
-import * as DB from '../../db.json';
+import SideNav from './SideNav';
+import * as DB from '../db.json';
 import { withStyles } from '@material-ui/core';
-import ChatContainer from '../ChatContainer';
+import ChatContainer from './ChatContainer';
 
 import * as firebase from 'firebase';
 
@@ -57,7 +57,6 @@ class Home extends React.Component {
 
     setCurrentChat = chatID => {
         this.setState({currentChat: chatID})
-        console.log(this.state.currentChat);
     };
 
     getChat = chatID => {
@@ -71,7 +70,6 @@ class Home extends React.Component {
 
     render() {
         const chats = this.getInbox();
-        console.log("chats:", chats);
         const friends = this.getFriends();
         const { classes } = this.props;
         let currentChat;

@@ -1,8 +1,8 @@
 import React from 'react';
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
 import { createMuiTheme } from '@material-ui/core/styles';
-import Login from "./login/login";
-import Home from './Home/Home';
+import Login from "./login";
+import Home from './Home';
 
 import * as firebase from 'firebase';
 

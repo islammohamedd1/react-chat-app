@@ -27,7 +27,7 @@ class FriendList extends React.Component {
     constructor(props) {
         super(props);   
         this.state = {
-            friends: Array(),
+            friends: [],
         }
 
         this.getFriends();
@@ -41,7 +41,6 @@ class FriendList extends React.Component {
 
         db.doc(`users/${user.uid}`).get().then(userSnapshot => {
             const friendsCount = userSnapshot.data().friends;
-            console.log(friendsCount);
             if (friendsCount > this.state.friends.length) {
                 db.collection('friends')
             .where('users', 'array-contains', user.uid)
@@ -66,7 +65,6 @@ class FriendList extends React.Component {
   
     render() {
         const { classes } = this.props;
-        // console.log(this.props);
         return (
             
             <MenuList>

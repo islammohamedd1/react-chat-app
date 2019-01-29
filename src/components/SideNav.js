@@ -8,7 +8,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import NavTabs from '../NavTabs';
+import NavTabs from './NavTabs';
 import { Divider } from '@material-ui/core';
 
 const drawerWidth = Number(process.env.REACT_APP_DRAWER_WIDTH);

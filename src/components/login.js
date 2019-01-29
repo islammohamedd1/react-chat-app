@@ -66,7 +66,6 @@ class Login extends React.Component {
     var _this = this; // to use it inside the then, catch functions
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then(result => {
-      var token = result.credential.accessToken;
       
       _this.props.setUser()
 
