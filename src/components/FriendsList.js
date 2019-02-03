@@ -30,10 +30,10 @@ class FriendList extends React.Component {
             friends: [],
         }
 
-        this.getFriends();
+        this.setFriends();
     }
 
-    getFriends = () => {
+    setFriends = () => {
         
         let user = firebase.auth().currentUser;
         let db = firebase.firestore();
@@ -43,22 +43,22 @@ class FriendList extends React.Component {
             const friendsCount = userSnapshot.data().friends;
             if (friendsCount > this.state.friends.length) {
                 db.collection('friends')
-            .where('users', 'array-contains', user.uid)
-            .get()
-            .then(snapshot => {
-                snapshot.docs.forEach(doc => {
-                    const data = doc.data();
-                    let friend = data.users[0] !== user.uid ? data.users[0] : data.users[1];
-                    db.doc(`users/${friend}`)
-                        .get()
-                        .then(friendSnapshot => {
-                            const friendData = friendSnapshot.data();
-                            let friends = _this.state.friends;
-                            friends.push(friendData);
-                            this.setState({ friends });
+                    .where('users', 'array-contains', user.uid)
+                    .get()
+                    .then(snapshot => {
+                        snapshot.docs.forEach(doc => {
+                            const data = doc.data();
+                            let friend = data.users[0] !== user.uid ? data.users[0] : data.users[1];
+                            db.doc(`users/${friend}`)
+                                .get()
+                                .then(friendSnapshot => {
+                                    const friendData = friendSnapshot.data();
+                                    let friends = _this.state.friends;
+                                    friends.push(friendData);
+                                    this.setState({ friends });
+                                })
                         })
-                })
-            }).catch(error => console.error(error));
+                    }).catch(error => console.error(error));
             }
         });
     }
