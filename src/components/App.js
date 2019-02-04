@@ -25,22 +25,29 @@ class App extends React.Component {
         }
 
         this.setUser = this.setUser.bind(this);
+        this.setUser();
     }
 
     setUser() {
-        this.setState({
-            user: firebase.auth().currentUser,
-        })
-        console.log(this.state.user);
+        firebase.auth().onAuthStateChanged(user => {
+            if (user) {
+                this.setState({
+                    user: firebase.auth().currentUser,
+                });
+                console.log(this.state.user);
+            } else {
+                this.setState({ user: 'no' });
+            }
+        });
     }
 
     renderPage() {
-        if (this.state.user) {
+        if (this.state.user !== 'no' && this.state.user !== null) {
             return (
                 <Home />
             )
         }
-        else {
+        else if (this.state.user !== null) {
             return (
                 <Login setUser={this.setUser} />
             )
