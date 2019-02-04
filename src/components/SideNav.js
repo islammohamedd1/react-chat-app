@@ -79,6 +79,7 @@ class SideNav extends React.Component {
             friends={this.props.friends}
             openChat={this.props.openChat}
             setCurrentChat={this.props.setCurrentChat}
+            setFriendChat={this.props.setFriendChat}
           />          
         </div>
       );
@@ -97,7 +98,7 @@ class SideNav extends React.Component {
                 <MenuIcon />
               </IconButton>
               {/* <Typography variant="h6" color="inherit" noWrap> */}
-              <Typography color="inherit" align="center" className={classes.title} variant='h6'>{this.props.participant}</Typography>
+              <Typography color="inherit" align="center" className={classes.title} variant='h6'>{this.props.participant.displayName}</Typography>
               {/* </Typography> */}
             </Toolbar>
           </AppBar>

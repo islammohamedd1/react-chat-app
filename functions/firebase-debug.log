@@ -1,0 +1,17 @@
+[debug] [2019-02-04T00:25:14.863Z] ----------------------------------------------------------------------
+[debug] [2019-02-04T00:25:14.865Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Islam Mohamed\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve
+[debug] [2019-02-04T00:25:14.866Z] CLI Version:   6.3.1
+[debug] [2019-02-04T00:25:14.866Z] Platform:      win32
+[debug] [2019-02-04T00:25:14.866Z] Node Version:  v8.11.2
+[debug] [2019-02-04T00:25:14.866Z] Time:          Mon Feb 04 2019 03:25:14 GMT+0300 (Arab Standard Time)
+[debug] [2019-02-04T00:25:14.866Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-02-04T00:25:14.880Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-02-04T00:25:14.882Z] > authorizing via signed-in user
+[debug] [2019-02-04T00:25:14.882Z] [iam] checking project react-chat-app-1a980 for permissions ["firebase.projects.get"]
+[debug] [2019-02-04T00:25:14.884Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/react-chat-app-1a980:testIamPermissions  
+
+[debug] [2019-02-04T00:25:16.186Z] <<< HTTP RESPONSE 200
+[debug] [2019-02-04T00:25:16.189Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/react-chat-app-1a980  
+ 
+[debug] [2019-02-04T00:25:17.296Z] <<< HTTP RESPONSE 200

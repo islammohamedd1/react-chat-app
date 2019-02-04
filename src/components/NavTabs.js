@@ -79,7 +79,7 @@ class NavTabs extends React.Component {
             />
           </TabContainer>
           <TabContainer dir={theme.direction}>
-            <FriendsList friends={this.props.friends} />
+            <FriendsList setFriendChat={this.props.setFriendChat} friends={this.props.friends} />
           </TabContainer>
         </SwipeableViews>
       </div>
