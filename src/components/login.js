@@ -54,21 +54,14 @@ class Login extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      user: null,
-      message: '',
-    }
 
     this.signIn = this.signIn.bind(this);
     this.renderContent = this.renderContent.bind(this);
   }
 
   signIn = () => {
-    // var _this = this; // to use it inside the then, catch functions
-    this.setState({ message: 'clicked' });
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithRedirect(provider).then(result => {
-      this.setState({ message: result });
     }).catch(error => console.log(error));
     
   }
@@ -117,7 +110,6 @@ class Login extends React.Component {
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
-          {this.state.message}
           {this.renderContent(classes)}
         </Paper>
       </main>
