@@ -75,32 +75,17 @@ class Login extends React.Component {
   }
 
   renderContent = classes => {
-    var user = this.state.user;
-    
-
-
-    if (this.state.user) {
-      return (
-        <div>
-          <Typography align="center" component="h1" variant="h5">
-            Welcome {user.displayName}
-          </Typography>
-        </div>
-      )
-      
-    } else {
       return (
         <div align="center">
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in {this.state.user}
+            Sign in
           </Typography>
           <Button className={classes.signin} onClick={this.signIn}>Google</Button>
         </div>
       )
-    }
   }
   
   render() {
