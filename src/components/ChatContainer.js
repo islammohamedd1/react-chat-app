@@ -9,6 +9,7 @@ const styles = theme => ({
 	container: {
 		height: '100%',
 		padding: theme.spacing.unit * 3,
+		paddingBottom: 70,
 	},
 	message: {
 		width: '100%',
@@ -17,19 +18,24 @@ const styles = theme => ({
 		marginBottom: theme.spacing.unit,
 	},
 	newMessage: {
+		width: '90%',
+		[theme.breakpoints.up('sm')]: {
+			width: '75%',
+		},
 		position: 'fixed',
 		bottom: 0,
-		width: '75%',
 		backgroundColor: '#fff',
 		padding: theme.spacing.unit,
 		height: 70,
 	},
 	text: {
-		width: '85%',
+		width: '70%',
+		[theme.breakpoints.up('sm')]: {
+			width: '85%',
+		},
 	},
 	btn: {
 		width: '10%',
-
 		float: 'right',
 	}
 })
@@ -42,7 +48,7 @@ class ChatContainer extends React.Component {
 			message: '',
 		}
 
-		this.handleClick = this.handleClick.bind(this);
+		this.handleKeyPress = this.handleKeyPress.bind(this);
 	}
 
 	sendMessage = () => {
@@ -58,7 +64,6 @@ class ChatContainer extends React.Component {
 					content: message,
 					from: user.uid,
 				})
-				.then(messageRef => console.log('message sent', messageRef.id))
 				.catch(error => console.log(error));
 		}
 	}
@@ -67,8 +72,8 @@ class ChatContainer extends React.Component {
 		this.setState({ message: e.target.value });
 	}
 
-	handleClick = e => {
-		if (e.target.value === 'enter') {
+	handleKeyPress = e => {
+		if (e.key === 'Enter') {
 			   this.sendMessage();
 		}
 	}
@@ -104,7 +109,7 @@ class ChatContainer extends React.Component {
 						}}
 						value={this.state.message}
 						onChange={this.handleChange}
-						onClick={this.handleClick}
+						onKeyPress={this.handleKeyPress}
 					/>
 					<Button variant="contained" margin="normal" className={classes.btn} onClick={this.sendMessage}>Send</Button>
 				</div>
@@ -117,6 +122,7 @@ class ChatContainer extends React.Component {
 		return (
 			<div>
 				<div className={classes.container}>
+
 					{this.renderMessages(classes)}
 					{this.renderSendContainer(classes)}
 				</div>

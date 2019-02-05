@@ -56,6 +56,7 @@ class Login extends React.Component {
     super(props);
     this.state = {
       user: null,
+      message: '',
     }
 
     this.signIn = this.signIn.bind(this);
@@ -63,9 +64,13 @@ class Login extends React.Component {
   }
 
   signIn = () => {
-    var _this = this; // to use it inside the then, catch functions
+    // var _this = this; // to use it inside the then, catch functions
+    this.setState({ message: 'clicked' });
     var provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    firebase.auth().signInWithRedirect(provider).then(result => {
+      this.setState({ message: result });
+    }).catch(error => console.log(error));
+    
   }
 
   handleError = error => {
@@ -97,7 +102,7 @@ class Login extends React.Component {
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
-            Sign in
+            Sign in {this.state.user}
           </Typography>
           <Button className={classes.signin} onClick={this.signIn}>Google</Button>
         </div>
@@ -112,6 +117,7 @@ class Login extends React.Component {
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper}>
+          {this.state.message}
           {this.renderContent(classes)}
         </Paper>
       </main>

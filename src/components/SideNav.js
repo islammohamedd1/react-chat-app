@@ -7,12 +7,13 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { withStyles } from '@material-ui/core/styles';
 import NavTabs from './NavTabs';
 import { Divider } from '@material-ui/core';
+import * as firebase from 'firebase';
 
 const drawerWidth = Number(process.env.REACT_APP_DRAWER_WIDTH);
-console.log(drawerWidth);
 
 const styles = theme => ({
   root: {
@@ -49,6 +50,12 @@ const styles = theme => ({
   title: {
     // padding: theme.spacing.unit * 2,
     // fontWeight: 'bold'
+    // float: 'left',
+  },
+  logout: {
+    float: 'right',
+    width: 25,
+    cursor: 'pointer',
   }
 });
 
@@ -63,6 +70,10 @@ class SideNav extends React.Component {
   }
 
   handleDrawerToggle = (() => {this.setState({mobileOpen: !this.state.mobileOpen})});
+
+  logout = () => {
+    firebase.auth().signOut();
+  }
 
     render() {
       const { classes, theme } = this.props;
@@ -97,9 +108,10 @@ class SideNav extends React.Component {
               >
                 <MenuIcon />
               </IconButton>
-              {/* <Typography variant="h6" color="inherit" noWrap> */}
-              <Typography color="inherit" align="center" className={classes.title} variant='h6'>{this.props.participant.displayName}</Typography>
-              {/* </Typography> */}
+              <Typography color="inherit"  className={classes.title} variant='h6'>{this.props.participant.displayName}</Typography>
+              <div className={classes.logout}>
+                <ExitToAppIcon className={classes.logout} onClick={this.logout} />
+              </div>
             </Toolbar>
           </AppBar>
           <nav className={classes.drawer}>

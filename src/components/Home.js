@@ -39,7 +39,6 @@ class Home extends React.Component {
 		this.addMessage = this.addMessage.bind(this);
 		this.getFriends();
 		this.getInbox();
-		console.log(this.state.chats);
 	}
 
 	getInbox = () => {
@@ -70,51 +69,31 @@ class Home extends React.Component {
 	addMessage = doc => {
 		let chats = this.state.chats;
 		const chatId = doc.ref.parent.parent.id;
-		console.log('chatId', chats[chatId]);
-		console.log('chats', chats);
 		if (chats[chatId]) {
 			chats[chatId].messages.push(doc.data());
 			this.setState({ chats });
 		}
 	}
 
-	createChat = doc => {
+	createChat = async doc => {
 		let chats = this.state.chats;
 		const user = firebase.auth().currentUser;
 		const db = firebase.firestore();
 		let newChat = doc.data();
 
 		newChat.id = doc.id;
+		
 		newChat.messages = [];
+		const messagesSnapshot = await doc.ref.collection('messages').get();
+		messagesSnapshot.docs.forEach(doc => {
+			newChat.messages.push(doc.data());
+		})
 		
 		let participantID = newChat.users[0] !== user.uid ? newChat.users[0] : newChat.users[1];
 		db.doc(`users/${participantID}`).get().then(participantSnapshot => {
 			newChat.participant = participantSnapshot.data();
 			chats[newChat.id] = newChat;
 			this.setState({ chats });
-		}).catch(error => console.log(error));
-	}
-
-	removeChat = doc => {
-		let chats = this.state.chats;
-		chats = chats.filter(c => c.id !== doc.id);
-		this.setState({ chats });
-	}
-
-	appendChat = doc => {
-		const _this = this;
-		const user = firebase.auth().currentUser;
-		const db = firebase.firestore();
-
-		let chats = _this.state.chats;
-		let currentChat = doc.data();
-		let participantID = currentChat.users[0] !== user.uid ? currentChat.users[0] : currentChat.users[1];
-
-		db.doc(`users/${participantID}`).get().then(participantSnapshot => {
-			currentChat.participant = participantSnapshot.data();
-			currentChat.id = doc.id;
-			chats.push(currentChat);
-			_this.setState({ chats });
 		}).catch(error => console.log(error));
 	}
 
@@ -148,10 +127,8 @@ class Home extends React.Component {
 	}
 	
 	setFriendChat = friendID => {
-		console.log('ran');
-		let chat = this.state.chats.filter(c => c.participant.uid === friendID)[0];
+		let chat = this.state.chats[friendID]
 		if (chat) {
-			console.log(chat);
 			this.setCurrentChat(chat.id);
 		} else {
 			let user = firebase.auth().currentUser;
@@ -165,9 +142,6 @@ class Home extends React.Component {
 			messages: [],
 			users: participants,
 		}).then(docRef => {
-			if (docRef.id) {
-				console.log("Chat created successfully:", docRef.id);
-			}
 			this.setCurrentChat(docRef.id);
 		}).catch(error => console.log(error));
 	}

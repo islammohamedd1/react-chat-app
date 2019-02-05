@@ -25,7 +25,6 @@ class MessagesList extends React.Component {
   
   render() {
     const { classes } = this.props;
-    // console.log(this.props);
     const chats = this.props.chats;
     return (
         
