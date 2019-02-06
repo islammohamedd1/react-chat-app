@@ -34,7 +34,6 @@ class App extends React.Component {
                 this.setState({
                     user: firebase.auth().currentUser,
                 });
-                console.log(this.state.user);
             } else {
                 this.setState({ user: 'no' });
             }

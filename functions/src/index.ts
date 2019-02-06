@@ -24,3 +24,19 @@ exports.newMessage = functions.firestore
             time: new Date(),
         }, {merge: true});
     });
+
+exports.newFreinds = functions.firestore
+    .document('friends/{docId}')
+    .onCreate(async (snapshot: any, context: any) => {
+        const users = snapshot.data().users;
+        let userRef;
+        let userSnapshot;
+        let friendsCount;
+        for (let i = 0; i < users.length; i++) {
+            userRef = snapshot.ref.parent.parent.collection('users').doc(users[i])
+            userSnapshot = await userRef.get();
+            friendsCount = userSnapshot.data().friends + 1;
+            await userRef.set({ friends: friendsCount }, {merge: true});
+        }
+
+    });

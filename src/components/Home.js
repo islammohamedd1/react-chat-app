@@ -44,7 +44,6 @@ class Home extends React.Component {
 	getInbox = () => {
 		let user = firebase.auth().currentUser;
 		let db = firebase.firestore();
-		const _this = this;
 		db.collection('chats')
 			.where('users', 'array-contains', user.uid)
 			.onSnapshot(chatsSnapshot => {
@@ -100,30 +99,47 @@ class Home extends React.Component {
 	getFriends = () => {
 		let user = firebase.auth().currentUser;
 		let db = firebase.firestore();
-		let _this = this;
+		db.collection('friends')
+			.where('users', 'array-contains', user.uid)
+			.onSnapshot(snapshot => {
+				snapshot.docChanges().forEach(change => {
+					if (change.type === 'added') {
+						const data = change.doc.data();
+						let friend = data.users[0] !== user.uid ? data.users[0] : data.users[1];
+						db.doc(`users/${friend}`)
+							.get()
+							.then(friendSnapshot => {
+								const friendData = friendSnapshot.data();
+								let friends = this.state.friends;
+								friends.push(friendData);
+								this.setState({ friends });
+							}).catch(error => console.log(error));
+					}
+				})
+			});
+	}
 
-		db.doc(`users/${user.uid}`).get().then(userSnapshot => {
-			const friendsCount = userSnapshot.data().friends;
-			if (friendsCount > this.state.friends.length) {
-				db.collection('friends')
-					.where('users', 'array-contains', user.uid)
-					.get()
-					.then(snapshot => {
-						snapshot.docs.forEach(doc => {
-							const data = doc.data();
-							let friend = data.users[0] !== user.uid ? data.users[0] : data.users[1];
-							db.doc(`users/${friend}`)
-								.get()
-								.then(friendSnapshot => {
-									const friendData = friendSnapshot.data();
-									let friends = _this.state.friends;
-									friends.push(friendData);
-									this.setState({ friends });
-								})
-						})
-					}).catch(error => console.error(error));
-			}
-		});
+	addFriend = friendId => {
+		const user = firebase.auth().currentUser;
+		const db = firebase.firestore();
+		if (!this.isFriend(friendId)) {
+			db.collection('friends').add({
+				users: [user.uid, friendId]
+			})
+			.then(docRef => {
+				this.setFriendChat(friendId);
+			})
+			.catch(error => console.log(error));
+		}
+	}
+
+	isFriend = friendId => {
+		let friend = this.state.friends.filter(f => f.uid === friendId )[0];
+		if (friend) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	setFriendChat = friendID => {
@@ -174,6 +190,8 @@ class Home extends React.Component {
 					setCurrentChat={this.setCurrentChat}
 					setFriendChat={this.setFriendChat}
 					participant={currentChat ? currentChat.participant : ''}
+					isFriend={this.isFriend}
+					addFriend={this.addFriend}
 				/>
 				<main className={classes.content}>
 					<div className={classes.toolbar} />

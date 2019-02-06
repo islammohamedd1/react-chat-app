@@ -9,6 +9,8 @@ import PersonIcon from '@material-ui/icons/Person';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MessagesList from './MessagesList';
 import FriendsList from './FriendsList';
+import SearchIcon from '@material-ui/icons/Search';
+import Search from './Search';
 
 function TabContainer({ children, dir }) {
   return (
@@ -62,6 +64,7 @@ class NavTabs extends React.Component {
           >
             <Tab icon={<InboxIcon />} className={classes.tab} />
             <Tab icon={<PersonIcon />} className={classes.tab} />
+            <Tab icon={<SearchIcon />} className={classes.tab} />
           </Tabs>
         </AppBar>
         <SwipeableViews
@@ -70,7 +73,7 @@ class NavTabs extends React.Component {
           onChangeIndex={this.handleChangeIndex}
           className={classes.tabsContainer}
         >
-          <TabContainer dir={theme.direction} className={classes.tabsContainer}>
+          <TabContainer dir={theme.direction}>
             <MessagesList
                 className={classes.tabsContainer}
                 chats={this.props.chats}
@@ -80,6 +83,9 @@ class NavTabs extends React.Component {
           </TabContainer>
           <TabContainer dir={theme.direction}>
             <FriendsList setFriendChat={this.props.setFriendChat} friends={this.props.friends} />
+          </TabContainer>
+          <TabContainer dir={theme.direction}>
+            <Search isFriend={this.props.isFriend} addFriend={this.props.addFriend} />
           </TabContainer>
         </SwipeableViews>
       </div>
