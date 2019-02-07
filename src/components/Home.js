@@ -53,6 +53,7 @@ class Home extends React.Component {
 					}
 				})
 				chatsSnapshot.docs.forEach(doc => {
+					console.log(doc.ref.collection('messages'));
 					doc.ref.collection('messages')
 						.onSnapshot(messagesSnapshot => {
 							messagesSnapshot.docChanges().forEach(change => {
