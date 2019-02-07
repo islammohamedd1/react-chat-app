@@ -22,27 +22,32 @@ const styles = theme => ({
 });
 
 class MessagesList extends React.Component {
+
+  renderChatList = (chats, classes) => {
+    console.log('props', this.props);
+    return (
+      <MenuList>
+            {
+              Object.keys(chats).map((k, i) => {
+                if (chats[k].messages.length != 0) {
+                  return (
+                    <MenuItem key={chats[k].participant.uid} className={classes.menuItem} onClick={() => this.props.setCurrentChat(chats[k].id)}>
+                      <ListItemIcon className={classes.icon}>
+                          <ChatIcon />
+                      </ListItemIcon>
+                      <ListItemText classes={{ primary: classes.primary }} inset primary={chats[k].participant.displayName} />
+                  </MenuItem>
+                  )
+                }
+              })}
+        </MenuList>
+    )
+  }
   
   render() {
     const { classes } = this.props;
     const chats = this.props.chats;
-    return (
-        
-        <MenuList>
-
-            {
-              Object.keys(chats).map((k, i) => (
-                <MenuItem key={chats[k].participant.uid} className={classes.menuItem} onClick={() => this.props.setCurrentChat(chats[k].id)}>
-                    <ListItemIcon className={classes.icon}>
-                        <ChatIcon />
-                    </ListItemIcon>
-                    <ListItemText classes={{ primary: classes.primary }} inset primary={chats[k].participant.displayName} />
-                </MenuItem>
-            ))}
-
-            
-        </MenuList>
-    );
+    return this.renderChatList(chats, classes);
   }
 }
 export default withStyles(styles)(MessagesList);

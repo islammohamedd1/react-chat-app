@@ -200,6 +200,7 @@ class Home extends React.Component {
 					participant={currentChat ? currentChat.participant : ''}
 					isFriend={this.isFriend}
 					addFriend={this.addFriend}
+					currentChat={this.state.currentChat}
 				/>
 				<main className={classes.content}>
 					<div className={classes.toolbar} />

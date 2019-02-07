@@ -93,6 +93,7 @@ class SideNav extends React.Component {
             setFriendChat={this.props.setFriendChat}
             isFriend={this.props.isFriend}
             addFriend={this.props.addFriend}
+            currentChat={this.props.currentChat}
           />          
         </div>
       );
