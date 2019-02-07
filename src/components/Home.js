@@ -142,13 +142,20 @@ class Home extends React.Component {
 		}
 	}
 	
-	setFriendChat = friendID => {
-		let chat = this.state.chats[friendID]
+	setFriendChat = friendId => {
+		let chat;
+		let chats = this.state.chats;
+		Object.keys(chats).map(k => {
+			if (chats[k].participant.uid === friendId) {
+				chat = chats[k];
+			}
+		});
+
 		if (chat) {
 			this.setCurrentChat(chat.id);
 		} else {
 			let user = firebase.auth().currentUser;
-			this.newChat([user.uid, friendID]);
+			this.newChat([user.uid, friendId]);
 		}
 	}
 
