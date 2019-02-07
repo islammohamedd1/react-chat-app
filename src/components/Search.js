@@ -50,7 +50,7 @@ class Search extends React.Component {
                         this.setState({ isFriend: false });
                     }
                 } else {
-                    this.setState({ result: false });
+                    this.setState({ found: false });
                 }
             }).catch(error => console.log(error));
     }
@@ -67,6 +67,8 @@ class Search extends React.Component {
                     </MenuItem>
                 </MenuList>
             )
+        } else {
+            return;
         }
     }
 

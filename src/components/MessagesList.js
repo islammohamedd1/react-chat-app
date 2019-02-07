@@ -24,7 +24,6 @@ const styles = theme => ({
 class MessagesList extends React.Component {
 
   renderChatList = (chats, classes) => {
-    console.log('props', this.props);
     return (
       <MenuList>
             {
