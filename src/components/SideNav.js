@@ -53,9 +53,11 @@ const styles = theme => ({
     // float: 'left',
   },
   logout: {
-    float: 'right',
     width: 25,
     cursor: 'pointer',
+    position: 'absolute',
+    right: 10,
+    top: 10,
   }
 });
 
