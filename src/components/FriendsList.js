@@ -23,6 +23,10 @@ const styles = theme => ({
 });
 
 class FriendList extends React.Component {
+    handleClick = friendId => {
+        this.props.toggleDrawer();
+        this.props.setFriendChat(friendId);
+    }
   
     render() {
         const { classes } = this.props;
@@ -30,7 +34,7 @@ class FriendList extends React.Component {
             
             <MenuList>
                 {this.props.friends.map((friend, i) => (
-                    <MenuItem key={i} className={classes.menuItem} onClick={() => this.props.setFriendChat(friend.uid)}>
+                    <MenuItem key={i} className={classes.menuItem} onClick={() => this.handleClick(friend.uid)}>
                         <ListItemIcon className={classes.icon}>
                             <PersonIcon />
                         </ListItemIcon>

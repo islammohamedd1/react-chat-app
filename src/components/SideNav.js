@@ -66,12 +66,14 @@ class SideNav extends React.Component {
     super(props);
 
     this.state = {
-      // open: false,
       mobileOpen: false,
     }
   }
 
-  handleDrawerToggle = (() => {this.setState({mobileOpen: !this.state.mobileOpen})});
+  handleDrawerToggle = () => {
+    if (window.innerWidth < 600)
+    this.setState({mobileOpen: !this.state.mobileOpen})
+  }
 
   logout = () => {
     firebase.auth().signOut();
@@ -96,6 +98,7 @@ class SideNav extends React.Component {
             isFriend={this.props.isFriend}
             addFriend={this.props.addFriend}
             currentChat={this.props.currentChat}
+            toggleDrawer={this.handleDrawerToggle}
           />          
         </div>
       );

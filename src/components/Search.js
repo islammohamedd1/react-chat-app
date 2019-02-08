@@ -55,11 +55,16 @@ class Search extends React.Component {
             }).catch(error => console.log(error));
     }
 
+    handleClick = friedId => {
+        this.props.toggleDrawer();
+        this.props.addFriend(friedId);
+    }
+
     renderResults = (classes) => {
         if (this.state.found === true) {
             return (
                 <MenuList>
-                    <MenuItem onClick={() => this.props.addFriend(this.state.result.uid)}>
+                    <MenuItem onClick={() => this.handleClick(this.state.result.uid)}>
                         <ListItemIcon>
                             {this.state.isFriend === true ? <PersonIcon /> : <PersonAddIcon className={classes.add} /> }
                         </ListItemIcon>

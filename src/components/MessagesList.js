@@ -23,6 +23,11 @@ const styles = theme => ({
 
 class MessagesList extends React.Component {
 
+  handleClick = chatId => {
+    this.props.toggleDrawer();
+    this.props.setCurrentChat(chatId)
+  }
+
   renderChatList = (chats, classes) => {
     return (
       <MenuList>
@@ -30,7 +35,7 @@ class MessagesList extends React.Component {
               Object.keys(chats).map((k, i) => {
                 if (chats[k].messages.length != 0) {
                   return (
-                    <MenuItem key={chats[k].participant.uid} className={classes.menuItem} onClick={() => this.props.setCurrentChat(chats[k].id)}>
+                    <MenuItem key={chats[k].participant.uid} className={classes.menuItem} onClick={() => this.handleClick(chats[k].id)}>
                       <ListItemIcon className={classes.icon}>
                           <ChatIcon />
                       </ListItemIcon>

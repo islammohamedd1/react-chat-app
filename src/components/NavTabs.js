@@ -80,13 +80,14 @@ class NavTabs extends React.Component {
                 openChat={this.props.openChat}
                 setCurrentChat={this.props.setCurrentChat}
                 currentChat={this.props.currentChat}
+                toggleDrawer={this.props.toggleDrawer}
             />
           </TabContainer>
           <TabContainer dir={theme.direction}>
-            <FriendsList setFriendChat={this.props.setFriendChat} friends={this.props.friends} />
+            <FriendsList setFriendChat={this.props.setFriendChat} friends={this.props.friends} toggleDrawer={this.props.toggleDrawer} />
           </TabContainer>
           <TabContainer dir={theme.direction}>
-            <Search isFriend={this.props.isFriend} addFriend={this.props.addFriend} />
+            <Search isFriend={this.props.isFriend} addFriend={this.props.addFriend} toggleDrawer={this.props.toggleDrawer} />
           </TabContainer>
         </SwipeableViews>
       </div>

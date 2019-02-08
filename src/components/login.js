@@ -62,7 +62,7 @@ class Login extends React.Component {
   signIn = () => {
     var provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithRedirect(provider).then(result => {
-    }).catch(error => console.log(error));
+    }).catch(error => this.handleError(error));
     
   }
 
