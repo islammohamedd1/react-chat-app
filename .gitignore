@@ -22,3 +22,7 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+# service account file
+functions/src/react-chat-app-5c722ed4c4c8.json

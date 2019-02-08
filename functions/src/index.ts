@@ -1,4 +1,12 @@
 import * as functions from 'firebase-functions';
+import * as admin from 'firebase-admin';
+
+// const serviceAccount =  require('./react-chat-app-5c722ed4c4c8.json');
+
+admin.initializeApp({
+    credential: admin.credential.applicationDefault(),
+    databaseURL: 'https://react-chat-app-1a980.firebaseio.com',
+})
 
 exports.createChat = functions.firestore
 	.document('chats/{chatId}')
@@ -40,3 +48,18 @@ exports.newFreinds = functions.firestore
         }
 
     });
+
+
+exports.newUser = functions.auth.user().onCreate((user) => {
+    const db = admin.firestore();
+    return db.doc(`users/${user.uid}`).set({
+        displayName: user.displayName,
+        email: user.email,
+        uid: user.uid,
+        chats: 0,
+        friends: 0,
+    })
+    .then(docRef => console.log("user created successfully:", docRef))
+    .catch(error => console.log("USER CREATION IN DATABSE ERROR!!", error));
+    
+})
