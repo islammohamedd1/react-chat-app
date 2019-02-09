@@ -28,7 +28,6 @@ class Search extends React.Component {
 
     handleChange = e => {
         this.setState({ search: this.search.value }, this.searchUsers(this.search.value));
-        
     }
 
     searchUsers = search => {
