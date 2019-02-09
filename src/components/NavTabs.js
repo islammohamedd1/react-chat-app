@@ -63,7 +63,6 @@ class NavTabs extends React.Component {
             className={classes.tabsContainer}
           >
             <Tab icon={<InboxIcon />} className={classes.tab} />
-            <Tab icon={<PersonIcon />} className={classes.tab} />
             <Tab icon={<SearchIcon />} className={classes.tab} />
           </Tabs>
         </AppBar>
@@ -82,9 +81,6 @@ class NavTabs extends React.Component {
                 currentChat={this.props.currentChat}
                 toggleDrawer={this.props.toggleDrawer}
             />
-          </TabContainer>
-          <TabContainer dir={theme.direction}>
-            <FriendsList setFriendChat={this.props.setFriendChat} friends={this.props.friends} toggleDrawer={this.props.toggleDrawer} />
           </TabContainer>
           <TabContainer dir={theme.direction}>
             <Search isFriend={this.props.isFriend} addFriend={this.props.addFriend} toggleDrawer={this.props.toggleDrawer} />

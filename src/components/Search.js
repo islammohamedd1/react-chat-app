@@ -27,18 +27,17 @@ class Search extends React.Component {
     }
 
     handleChange = e => {
-        this.setState({ search: e.target.value });
-        this.searchUsers();
+        this.setState({ search: this.search.value }, this.searchUsers(this.search.value));
     }
 
-    searchUsers = () => {
+    searchUsers = search => {
         var user = firebase.auth().currentUser;
-        if (this.state.search === user.uid) {
+        if (search === user.uid) {
             return;
         }
         const db = firebase.firestore();
         db.collection('users')
-            .where('email', '==', this.state.search)
+            .where('email', '==', search)
             .get()
             .then(resultSnapshot => {
                 if (!resultSnapshot.empty) {
@@ -85,6 +84,7 @@ class Search extends React.Component {
                     placeholder="Search with email"
                     fullWidth
                     value={this.state.search}
+                    inputRef={input => this.search = input}
                     onChange={this.handleChange}
                 />
                 {this.renderResults(classes)}

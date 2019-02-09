@@ -51,6 +51,11 @@ class Home extends React.Component {
 					if (change.type === 'added') {
 						this.createChat(change.doc);
 					}
+					else if (change.type === 'removed') {
+						let chats = this.state.chats;
+						delete chats[change.doc.id];
+						this.setState({ chats });
+					}
 				})
 				chatsSnapshot.docs.forEach(doc => {
 					doc.ref.collection('messages')
@@ -114,6 +119,10 @@ class Home extends React.Component {
 								friends.push(friendData);
 								this.setState({ friends });
 							}).catch(error => console.log(error));
+					} else if (change.type === 'removed') {
+						let friend = change.doc.data().users.filter(u => u !== user.uid)[0];
+						let friends = this.state.friends.filter(f => f !== friend);
+						this.setState({ friends });
 					}
 				})
 			});
