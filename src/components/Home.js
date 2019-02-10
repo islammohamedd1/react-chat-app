@@ -57,12 +57,14 @@ class Home extends React.Component {
 						this.setState({ chats });
 					}
 				})
-				chatsSnapshot.docs.forEach(doc => {
-					doc.ref.collection('messages')
+				chatsSnapshot.docs.forEach( doc => {
+					doc.ref.collection("messages")
+						.orderBy("time", "asc")
 						.onSnapshot(messagesSnapshot => {
 							messagesSnapshot.docChanges().forEach(change => {
 								if (change.type === 'added') {
 									this.addMessage(change.doc);
+									window.scrollTo(0, document.body.scrollHeight);
 								}
 							})
 						})
@@ -74,6 +76,7 @@ class Home extends React.Component {
 		let chats = this.state.chats;
 		const chatId = doc.ref.parent.parent.id;
 		if (chats[chatId]) {
+			console.log(chats[chatId].messages);
 			chats[chatId].messages.push(doc.data());
 			this.setState({ chats });
 		}
@@ -88,7 +91,9 @@ class Home extends React.Component {
 		newChat.id = doc.id;
 		
 		newChat.messages = [];
-		const messagesSnapshot = await doc.ref.collection('messages').get();
+		const messagesSnapshot = await doc.ref.collection('messages')
+			.orderBy('time', 'asc')
+			.get();
 		messagesSnapshot.docs.forEach(doc => {
 			newChat.messages.push(doc.data());
 		})
@@ -180,7 +185,7 @@ class Home extends React.Component {
 
 	setCurrentChat = chatID => {
 		if (this.state.currentChat !== chatID) {
-			this.setState({ currentChat: chatID })
+			this.setState({ currentChat: chatID }, () => {window.scrollTo(0, document.body.scrollHeight)})
 		}
 	};
 
