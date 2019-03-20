@@ -8,7 +8,6 @@ import Typography from '@material-ui/core/Typography';
 import PersonIcon from '@material-ui/icons/Person';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MessagesList from './MessagesList';
-import FriendsList from './FriendsList';
 import SearchIcon from '@material-ui/icons/Search';
 import Search from './Search';
 

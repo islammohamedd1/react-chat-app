@@ -1,6 +1,5 @@
 import React from 'react';
 import SideNav from './SideNav';
-import * as DB from '../db.json';
 import { withStyles } from '@material-ui/core';
 import ChatContainer from './ChatContainer';
 

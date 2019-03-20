@@ -26,13 +26,25 @@ class Search extends React.Component {
         }
     }
 
+    componentWillMount = () => {
+        this.timer = null;
+    }
+
     handleChange = e => {
-        this.setState({ search: this.search.value }, this.searchUsers(this.search.value));
+        clearTimeout(this.timer);
+
+        this.setState({ search: this.search.value });
+
+        this.timer = setTimeout(this.triggerSearch, 500);
+    }
+
+    triggerSearch = () => {
+        this.searchUsers(this.search.value);
     }
 
     searchUsers = search => {
         var user = firebase.auth().currentUser;
-        if (search === user.uid) {
+        if (search === user.email) {
             return;
         }
         const db = firebase.firestore();

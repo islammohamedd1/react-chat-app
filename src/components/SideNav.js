@@ -86,6 +86,9 @@ class SideNav extends React.Component {
           <AppBar position="static" color="primary">
               <Toolbar>
                   <Typography variant="h6" color="inherit">Chat - APP</Typography>
+                  <div className={classes.logout}>
+                    <ExitToAppIcon className={classes.logout} onClick={this.logout} />
+                  </div>
               </Toolbar>
           </AppBar>
           <Divider />
@@ -117,9 +120,7 @@ class SideNav extends React.Component {
                 <MenuIcon />
               </IconButton>
               <Typography color="inherit"  className={classes.title} variant='h6'>{this.props.participant.displayName}</Typography>
-              <div className={classes.logout}>
-                <ExitToAppIcon className={classes.logout} onClick={this.logout} />
-              </div>
+              
             </Toolbar>
           </AppBar>
           <nav className={classes.drawer}>
