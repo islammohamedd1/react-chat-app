@@ -4,8 +4,6 @@ import './styleInit';
 import './index.css';
 import App from './components/App';
 
-import * as serviceWorker from './serviceWorker';
-
 import * as firebase from 'firebase';
 
 var config = {
@@ -21,5 +19,3 @@ firebase.initializeApp(config);
 firebase.firestore().enablePersistence();
 
 ReactDOM.render(<App />, document.getElementById('root'));
-
-serviceWorker.register();

@@ -100,7 +100,7 @@ class Search extends React.Component {
         return (
             <div>
                 <TextField
-                    placeholder="Search with email"
+                    placeholder="Search..."
                     fullWidth
                     value={this.state.search}
                     inputRef={input => this.search = input}
