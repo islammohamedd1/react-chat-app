@@ -52,14 +52,28 @@ exports.newFreinds = functions.firestore
 
 exports.newUser = functions.auth.user().onCreate((user) => {
     const db = admin.firestore();
-    return db.doc(`users/${user.uid}`).set({
+    const userRef = db.doc(`users/${user.uid}`);
+    const searchesRef = db.doc(`searches/${user.uid}`);
+    const userData = {
         displayName: user.displayName,
         email: user.email,
         uid: user.uid,
         chats: 0,
-        friends: 0,
-    })
-    .then(docRef => console.log("user created successfully:", docRef))
-    .catch(error => console.log("USER CREATION IN DATABSE ERROR!!", error));
-    
+        friends: 0,        
+    }
+
+    const searchData = {
+        displayName: user.displayName,
+        email: user.email,
+        uid: user.uid,
+    }
+
+    const batch = db.batch();
+
+    batch.set(userRef, userData);
+    batch.set(searchesRef, searchData);
+
+    batch.commit()
+    .then(() => console.log("User added successfully!"))
+    .catch(error => console.log(`Error adding user: ${error}`));
 })

@@ -16,14 +16,31 @@ const styles = {
 }
 
 class Search extends React.Component {
+
     constructor(props) {
         super(props);
         this.state = {
             search: '',
-            result: null,
+            results: [],
             found: false,
             isFriend: false,
+            searches: [],
         }
+
+        this.getSearchData();
+    }
+
+    getSearchData = () => {
+        const db = firebase.firestore();
+        db.collection("searches").get().then(snapshot => {
+            if (!snapshot.empty) {
+                let currentSearches = this.state.searches;
+                snapshot.forEach(doc => {
+                    currentSearches.push(doc.data());
+                    this.setState({searches: currentSearches});
+                });
+            }
+        })
     }
 
     componentWillMount = () => {
@@ -44,26 +61,16 @@ class Search extends React.Component {
 
     searchUsers = search => {
         var user = firebase.auth().currentUser;
-        if (search === user.email) {
+        if (search.length == 0) {
+            results = [];
+            this.setState({results});
             return;
         }
-        const db = firebase.firestore();
-        db.collection('users')
-            .where('email', '==', search)
-            .get()
-            .then(resultSnapshot => {
-                if (!resultSnapshot.empty) {
-                    let result = resultSnapshot.docs[0].data();
-                    this.setState({ result, found: true});
-                    if (this.props.isFriend(result.uid)) {
-                        this.setState({ isFriend: true });
-                    } else {
-                        this.setState({ isFriend: false });
-                    }
-                } else {
-                    this.setState({ found: false });
-                }
-            }).catch(error => console.log(error));
+        var searchRegex = new RegExp("(" + search + "[a-z ]).*", "gi");
+        console.log(this.state.searches);
+            let results = this.state.searches.filter(u => (u.displayName.match(searchRegex) || u.email.match(searchRegex) || u.displayName == search || u.emaill == search) && u.email != user.email);
+            console.log(results);
+            this.setState({results});
     }
 
     handleClick = friedId => {
@@ -74,20 +81,18 @@ class Search extends React.Component {
     }
 
     renderResults = (classes) => {
-        if (this.state.found === true) {
             return (
                 <MenuList>
-                    <MenuItem onClick={() => this.handleClick(this.state.result.uid)}>
+                    {this.state.results.map(r => 
+                        <MenuItem key={r.uid} onClick={() => this.handleClick(r.uid)}>
                         <ListItemIcon>
-                            {this.state.isFriend === true ? <PersonIcon /> : <PersonAddIcon className={classes.add} /> }
+                            <PersonIcon />
                         </ListItemIcon>
-                        <ListItemText inset primary={this.state.result.displayName} />
+                        <ListItemText inset primary={r.displayName} />
                     </MenuItem>
-                </MenuList>
+                    )}
+                </MenuList>    
             )
-        } else {
-            return;
-        }
     }
 
     render() {
