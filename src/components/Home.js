@@ -136,14 +136,13 @@ class Home extends React.Component {
 		const user = firebase.auth().currentUser;
 		const db = firebase.firestore();
 		if (!this.isFriend(friendId)) {
+			console.log("...........");
 			db.collection('friends').add({
 				users: [user.uid, friendId]
 			})
-			.then(docRef => {
-				this.setFriendChat(friendId);
-			})
 			.catch(error => console.log(error));
 		}
+		this.setFriendChat(friendId);
 	}
 
 	isFriend = friendId => {
@@ -166,6 +165,7 @@ class Home extends React.Component {
 
 		if (chat) {
 			this.setCurrentChat(chat.id);
+			console.log("Setting current chat to " + chat.id);
 		} else {
 			let user = firebase.auth().currentUser;
 			this.newChat([user.uid, friendId]);

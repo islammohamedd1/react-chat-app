@@ -67,8 +67,10 @@ class Search extends React.Component {
     }
 
     handleClick = friedId => {
+        console.log("triggered");
         this.props.toggleDrawer();
         this.props.addFriend(friedId);
+
     }
 
     renderResults = (classes) => {
