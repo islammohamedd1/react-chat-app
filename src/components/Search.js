@@ -8,6 +8,7 @@ import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import PersonIcon from '@material-ui/icons/Person';
 import TextField from '@material-ui/core/TextField';
 import * as firebase from 'firebase';
+import { List, ListItem, ListItemAvatar, Avatar } from '@material-ui/core';
 
 const styles = {
     add: {
@@ -82,16 +83,16 @@ class Search extends React.Component {
 
     renderResults = (classes) => {
             return (
-                <MenuList>
+                <List>
                     {this.state.results.map(r => 
-                        <MenuItem key={r.uid} onClick={() => this.handleClick(r.uid)}>
-                        <ListItemIcon>
-                            <PersonIcon />
-                        </ListItemIcon>
+                        <ListItem key={r.uid} onClick={() => this.handleClick(r.uid)}>
+                        <ListItemAvatar>
+                        <Avatar alt={r.displayName} src={`https://firebasestorage.googleapis.com/v0/b/react-chat-app-1a980.appspot.com/o/avatars%2F${r.uid}?alt=media&token=52ec6fdb-85ed-419a-879f-e0c4a06035cd`} />
+                        </ListItemAvatar>
                         <ListItemText inset primary={r.displayName} />
-                    </MenuItem>
+                    </ListItem>
                     )}
-                </MenuList>    
+                </List>    
             )
     }
 

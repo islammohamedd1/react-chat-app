@@ -4,6 +4,9 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import ChatMessage from './ChatMessage';
 import * as firebase from 'firebase';
+import { Fab } from '@material-ui/core';
+
+const drawerWidth = Number(process.env.REACT_APP_DRAWER_WIDTH);
 
 const styles = theme => ({
 	container: {
@@ -18,25 +21,21 @@ const styles = theme => ({
 		marginBottom: theme.spacing.unit,
 	},
 	newMessage: {
-		width: '90%',
-		[theme.breakpoints.up('sm')]: {
-			width: '75%',
-		},
+		width: `calc(100% - ${drawerWidth}px)`,
 		position: 'fixed',
 		bottom: 0,
-		backgroundColor: '#fff',
-		padding: theme.spacing.unit,
+		right: 0,
 		height: 70,
 	},
 	text: {
-		width: '70%',
-		[theme.breakpoints.up('sm')]: {
-			width: '85%',
-		},
+		width: '75%',
 	},
 	btn: {
 		width: '10%',
 		float: 'right',
+		marginRight: theme.spacing.unit,
+		paddingLeft: theme.spacing.unit * 4,
+		paddingRight: theme.spacing.unit * 4,
 	}
 })
 
@@ -111,7 +110,7 @@ class ChatContainer extends React.Component {
 						onChange={this.handleChange}
 						onKeyPress={this.handleKeyPress}
 					/>
-					<Button variant="contained" margin="normal" className={classes.btn} onClick={this.sendMessage}>Send</Button>
+					<Fab variant="extended" color="primary" margin="normal" className={classes.btn} onClick={this.sendMessage}>Send</Fab>
 				</div>
 			)
 		}

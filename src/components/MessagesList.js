@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ChatIcon from '@material-ui/icons/Chat';
 
 import * as firebase from 'firebase';
+import { ListItemAvatar, Avatar, List, ListItem } from '@material-ui/core';
 
 const styles = theme => ({
   menuItem: {
@@ -30,21 +31,21 @@ class MessagesList extends React.Component {
 
   renderChatList = (chats, classes) => {
     return (
-      <MenuList>
+      <List>
             {
               Object.keys(chats).map((k, i) => {
                 if (chats[k].messages.length != 0) {
                   return (
-                    <MenuItem key={chats[k].participant.uid} className={classes.menuItem} onClick={() => this.handleClick(chats[k].id)}>
-                      <ListItemIcon className={classes.icon}>
-                          <ChatIcon />
-                      </ListItemIcon>
+                    <ListItem key={chats[k].participant.uid} className={classes.menuItem} onClick={() => this.handleClick(chats[k].id)}>
+                    <ListItemAvatar>
+                      <Avatar alt={chats[k].participant.displayName} src={`https://firebasestorage.googleapis.com/v0/b/react-chat-app-1a980.appspot.com/o/avatars%2F${chats[k].participant.uid}?alt=media&token=52ec6fdb-85ed-419a-879f-e0c4a06035cd`} />
+                    </ListItemAvatar>
                       <ListItemText classes={{ primary: classes.primary }} inset primary={chats[k].participant.displayName} />
-                  </MenuItem>
+                  </ListItem>
                   )
                 }
               })}
-        </MenuList>
+        </List>
     )
   }
   
