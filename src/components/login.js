@@ -9,6 +9,10 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import red from '@material-ui/core/colors/red';
 
 import * as firebase from 'firebase';
+import { Grid, AppBar } from '@material-ui/core';
+import { blue } from '@material-ui/core/colors';
+import SignIn from './SignIn';
+import SignUp from './SignUp';
 
 const styles = theme => ({
   main: {
@@ -17,16 +21,20 @@ const styles = theme => ({
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-      width: 400,
+      width: '90%',
       marginLeft: 'auto',
       marginRight: 'auto',
     },
+    width: '100%',
+    marginLeft: 0,
+    marginRight: 0,
   },
   paper: {
-    marginTop: theme.spacing.unit * 8,
+    marginTop: theme.spacing.unit * 9,
     display: 'flex',
+    minHeight: '80vh',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'left',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
   avatar: {
@@ -37,16 +45,29 @@ const styles = theme => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing.unit,
   },
-  signin: {
-    paddingLeft: theme.spacing.unit * 2,
-    paddingRight: theme.spacing.unit * 2,
-    marginTop: theme.spacing.unit * 3,
-    backgroundColor: red['A700'],
-    color: red[50],
-    '&:hover': {
-        backgroundColor: red['A700'],
-        color: red[50],
-    }
+  headline: {
+    color: "#fff",
+    marginBottom: theme.spacing.unit * 3,
+    fontWeight: 'bold',
+  },
+  subheading: {
+    marginBottom: theme.spacing.unit * 5,
+  },
+  appBar: {
+    padding: theme.spacing.unit,
+    paddingLeft: "5%"
+  },
+  title: {
+    padding: theme.spacing.unit,
+    color: '#fff',
+    fontWeight: "bold",
+  },
+  btn: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+  },
+  a: {
+    textDecoration: 'none',
   },
 });
 
@@ -54,6 +75,12 @@ class Login extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.state = {
+      action: null,
+    }
+
+    this.formRef = React.createRef();
 
     this.signIn = this.signIn.bind(this);
     this.renderContent = this.renderContent.bind(this);
@@ -74,16 +101,45 @@ class Login extends React.Component {
     }
   }
 
+  handleSignInAction = () => {
+    this.setState({action: 'in'});
+    
+  }
+
+  handleSignUpAction = () => {
+    this.setState({action: 'up'});
+  }
+
+  renderForm = () => {
+    if (this.state.action === "in") {
+      return (
+        <SignIn setUser={this.props.setUser} />
+      )
+    } else {
+      return (
+        <SignUp readyToRender={this.props.readyToRender} notReadyToRender={this.props.notReadyToRender} setUser={this.props.setUser} />
+      )
+    }
+  }
+
   renderContent = classes => {
       return (
-        <div align="center">
-          <Avatar className={classes.avatar}>
-            <LockOutlinedIcon />
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
-          <Button className={classes.signin} onClick={this.signIn}>Google</Button>
+        <div>
+          <Grid container spacing={16}>
+            <Grid item sm={6}>
+              <Typography variant="h2" className={classes.headline}>Welcome to the most awesome chat app</Typography>
+              <Typography variant="h6" className={classes.subheading}>Enjoy chatting with your friends in a private, awesome and free chat app.</Typography>
+              <a href="#form" className={classes.a}>
+                <Button variant="contained" color="primary" className={classes.btn} onClick={this.handleSignInAction}>Sign in</Button>
+              </a>
+              <a href="#form" className={classes.a}>
+                <Button variant="contained" className={classes.btn} onClick={this.handleSignUpAction}>Sign up</Button>
+              </a>
+            </Grid>
+            <Grid item sm={6} id="form">
+              {this.renderForm()}
+            </Grid>
+          </Grid>
         </div>
       )
   }
@@ -93,6 +149,9 @@ class Login extends React.Component {
   
     return (
       <main className={classes.main}>
+        <AppBar className={classes.appBar}>
+          <Typography variant="h4" className={classes.title}>Chat App</Typography>
+        </AppBar>
         <CssBaseline />
         <Paper className={classes.paper}>
           {this.renderContent(classes)}

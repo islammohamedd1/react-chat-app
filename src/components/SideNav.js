@@ -24,6 +24,7 @@ const styles = theme => ({
       width: drawerWidth,
       flexShrink: 0,
     },
+    width: "100%",
   },
   appBar: {
     marginLeft: drawerWidth,
@@ -39,8 +40,11 @@ const styles = theme => ({
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth,
-    maxWidth: drawerWidth,
+    [theme.breakpoints.up('sm')]: {
+      width: drawerWidth,
+    },
+    width: "100%",
+    // maxWidth: drawerWidth,
     overflow: "none",
   },
   content: {
@@ -66,13 +70,14 @@ class SideNav extends React.Component {
     super(props);
 
     this.state = {
-      mobileOpen: false,
+      mobileOpen: window.innerWidth < 600 ? true : false,
     }
   }
 
   handleDrawerToggle = () => {
-    if (window.innerWidth < 600)
-    this.setState({mobileOpen: !this.state.mobileOpen})
+    if (window.innerWidth < 600) {
+      this.setState({mobileOpen: !this.state.mobileOpen})
+    }
   }
 
   logout = () => {

@@ -8,7 +8,7 @@ import * as firebase from 'firebase';
 
 const theme = createMuiTheme({
   palette: {
-    type: 'light',
+    type: 'dark',
   },
   typography: {
     useNextVariants: true,
@@ -22,10 +22,12 @@ class App extends React.Component {
 
         this.state = {
             user: null,
+            readyToRender: true,
         }
 
         this.setUser = this.setUser.bind(this);
         this.setUser();
+        
     }
 
     setUser() {
@@ -40,18 +42,22 @@ class App extends React.Component {
         });
     }
 
+    readyToRender = () => this.setState({readyToRender: true});
+    notReadyToRender = () => this.setState({readyToRender: false});
+
     renderPage() {
-        if (this.state.user !== 'no' && this.state.user !== null) {
+        if (this.state.user !== 'no' && this.state.user !== null && this.state.readyToRender) {
             return (
                 <Home />
             )
         }
         else if (this.state.user !== null) {
             return (
-                <Login setUser={this.setUser} />
+                <Login readyToRender={this.readyToRender} notReadyToRender={this.notReadyToRender} setUser={this.setUser}  />
             )
         }
     }
+
     render() {
         return (
             <MuiThemeProvider theme={theme}>

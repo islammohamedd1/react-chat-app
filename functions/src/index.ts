@@ -55,7 +55,7 @@ exports.newUser = functions.auth.user().onCreate((user) => {
     const userRef = db.doc(`users/${user.uid}`);
     const searchesRef = db.doc(`searches/${user.uid}`);
     const userData = {
-        displayName: user.displayName,
+        // displayName: user.displayName,
         email: user.email,
         uid: user.uid,
         chats: 0,
@@ -63,7 +63,7 @@ exports.newUser = functions.auth.user().onCreate((user) => {
     }
 
     const searchData = {
-        displayName: user.displayName,
+        // displayName: user.displayName,
         email: user.email,
         uid: user.uid,
     }
@@ -76,4 +76,42 @@ exports.newUser = functions.auth.user().onCreate((user) => {
     batch.commit()
     .then(() => console.log("User added successfully!"))
     .catch(error => console.log(`Error adding user: ${error}`));
+});
+
+exports.removeUser = functions.auth.user().onDelete((user) => {
+    const db = admin.firestore();
+    const userRef = db.doc(`users/${user.uid}`);
+    const searchesRef = db.doc(`searches/${user.uid}`);
+
+    userRef.delete().catch(error => console.log(error));
+    searchesRef.delete().catch(error => console.log(error));
+
+    db.collection("chats").where("users", "array-contains", user.uid).get().then(results => {
+        results.docs.forEach(doc => {
+            doc.ref.delete().catch(error => console.log(error));
+        })
+    })
+});
+
+exports.newUserDoc = functions.firestore.document("user/{userId}").onCreate(doc => {
+    let data;
+    data = doc.data();
+    if (data) {
+        admin.auth().getUser(data.uid).then(user => {
+            doc.ref.set({displayName: user.displayName});
+        }).catch(error => {console.log(error)});
+    }
+});
+
+exports.updateUser = functions.https.onCall((user, context) => {
+    const db = admin.firestore();
+    const userRef = db.doc(`users/${user.uid}`);
+    const searchRef = db.doc(`searches/${user.uid}`);
+
+    const batch = db.batch();
+
+    batch.set(userRef, {displayName: user.displayName}, {merge: true});
+    batch.set(searchRef, {displayName: user.displayName}, {merge: true});
+
+    batch.commit().catch(error => console.log(error));
 })

@@ -13,6 +13,10 @@ if (workbox) {
         },
     })
   );
+  workbox.routing.registerRoute(
+    new RegExp("https:\/\/fonts\.googleapis\.com\/.*"),
+    new workbox.strategies.CacheFirst()
+  );
 
 } else {
   console.log(`Boo! Workbox didn't load 😬`);
