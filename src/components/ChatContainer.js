@@ -21,10 +21,14 @@ const styles = theme => ({
 		marginBottom: theme.spacing.unit,
 	},
 	newMessage: {
-		width: `calc(100% - ${drawerWidth}px)`,
+		[theme.breakpoints.up('sm')]: {
+			width: `calc(100% - ${drawerWidth}px)`,
+			right: 0,
+		},
+		left: 0,
+		width: "100%",
 		position: 'fixed',
 		bottom: 0,
-		right: 0,
 		height: 70,
 	},
 	text: {

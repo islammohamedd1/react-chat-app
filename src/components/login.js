@@ -149,7 +149,7 @@ class Login extends React.Component {
   
     return (
       <main className={classes.main}>
-        <AppBar className={classes.appBar}>
+        <AppBar className={classes.appBar} color="default">
           <Typography variant="h4" className={classes.title}>Chat App</Typography>
         </AppBar>
         <CssBaseline />

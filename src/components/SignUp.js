@@ -124,8 +124,12 @@ class SignUp extends React.Component {
             await batch.commit();
 
             const avatarRef = firebase.storage().ref(`avatars/${result.user.uid}`)
-            const avatarResult = await avatarRef.put(this.state.avatar);
-            console.log(avatarResult);
+            await avatarRef.put(this.state.avatar);
+            await avatarRef.updateMetadata({
+                cacheControl: 'public,max-age=300',
+                contentType: 'image/jpeg'
+            });
+
             this.props.readyToRender();
         }
         catch (error_2) {

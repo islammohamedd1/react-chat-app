@@ -87,7 +87,7 @@ class Search extends React.Component {
                     {this.state.results.map(r => 
                         <ListItem key={r.uid} onClick={() => this.handleClick(r.uid)}>
                         <ListItemAvatar>
-                        <Avatar alt={r.displayName} src={`https://firebasestorage.googleapis.com/v0/b/react-chat-app-1a980.appspot.com/o/avatars%2F${r.uid}?alt=media&token=52ec6fdb-85ed-419a-879f-e0c4a06035cd`} />
+                            <Avatar alt={r.displayName} src={`https://firebasestorage.googleapis.com/v0/b/react-chat-app-1a980.appspot.com/o/avatars%2F${r.uid}?alt=media&token=52ec6fdb-85ed-419a-879f-e0c4a06035cd`} />
                         </ListItemAvatar>
                         <ListItemText inset primary={r.displayName} />
                     </ListItem>

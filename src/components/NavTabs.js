@@ -79,10 +79,11 @@ class NavTabs extends React.Component {
                 setCurrentChat={this.props.setCurrentChat}
                 currentChat={this.props.currentChat}
                 toggleDrawer={this.props.toggleDrawer}
+                getAvatarUrl={this.props.getAvatarUrl}
             />
           </TabContainer>
           <TabContainer dir={theme.direction}>
-            <Search isFriend={this.props.isFriend} addFriend={this.props.addFriend} toggleDrawer={this.props.toggleDrawer} />
+            <Search isFriend={this.props.isFriend} addFriend={this.props.addFriend} toggleDrawer={this.props.toggleDrawer} getAvatarUrl={this.props.getAvatarUrl} />
           </TabContainer>
         </SwipeableViews>
       </div>

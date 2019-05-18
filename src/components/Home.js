@@ -193,6 +193,12 @@ class Home extends React.Component {
 		return chat;
 	}
 
+	getAvatarUrl = async uid =>  {
+		const downloadUrl = await firebase.storage().ref(`avatars/${uid}`).getDownloadURL();
+		console.log("download url:", downloadUrl);
+		return downloadUrl;
+	}
+
 	render() {
 		const { classes } = this.props;
 		let currentChat;
@@ -213,6 +219,7 @@ class Home extends React.Component {
 					isFriend={this.isFriend}
 					addFriend={this.addFriend}
 					currentChat={this.state.currentChat}
+					getAvatarUrl={this.getAvatarUrl}
 				/>
 				<main className={classes.content}>
 					<div className={classes.toolbar} />

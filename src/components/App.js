@@ -42,8 +42,12 @@ class App extends React.Component {
         });
     }
 
-    readyToRender = () => this.setState({readyToRender: true});
-    notReadyToRender = () => this.setState({readyToRender: false});
+    readyToRender = () => {
+        this.setState({readyToRender: true})
+    };
+    notReadyToRender = () => {
+        this.setState({readyToRender: false})
+    };
 
     renderPage() {
         if (this.state.user !== 'no' && this.state.user !== null && this.state.readyToRender) {

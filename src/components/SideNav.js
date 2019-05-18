@@ -56,6 +56,9 @@ const styles = theme => ({
     // fontWeight: 'bold'
     // float: 'left',
   },
+  header: {
+    fontWeight: 'bold',
+  },
   logout: {
     width: 25,
     cursor: 'pointer',
@@ -88,9 +91,9 @@ class SideNav extends React.Component {
       const { classes, theme } = this.props;
       const drawer = (
         <div>
-          <AppBar position="static" color="primary">
+          <AppBar position="static" color="default">
               <Toolbar>
-                  <Typography variant="h6" color="inherit">Chat - APP</Typography>
+                  <Typography className={classes.header} variant="h5" color="inherit">Chat APP</Typography>
                   <div className={classes.logout}>
                     <ExitToAppIcon className={classes.logout} onClick={this.logout} />
                   </div>
@@ -107,6 +110,7 @@ class SideNav extends React.Component {
             addFriend={this.props.addFriend}
             currentChat={this.props.currentChat}
             toggleDrawer={this.handleDrawerToggle}
+            getAvatarUrl={this.props.getAvatarUrl}
           />          
         </div>
       );
@@ -114,7 +118,7 @@ class SideNav extends React.Component {
       return (
         <div className={classes.root}>
           <CssBaseline />
-          <AppBar position="fixed" className={classes.appBar}>
+          <AppBar position="fixed" className={classes.appBar} color="default">
             <Toolbar>
               <IconButton
                 color="inherit"
@@ -129,7 +133,6 @@ class SideNav extends React.Component {
             </Toolbar>
           </AppBar>
           <nav className={classes.drawer}>
-            {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
             <Hidden smUp implementation="css">
               <Drawer
                 container={this.props.container}
