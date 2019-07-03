@@ -1,22 +1,17 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import red from '@material-ui/core/colors/red';
 
 import * as firebase from 'firebase';
 import { Grid, AppBar } from '@material-ui/core';
-import { blue } from '@material-ui/core/colors';
 import SignIn from './SignIn';
 import SignUp from './SignUp';
 
 const styles = theme => ({
   main: {
-    width: 'auto',
     display: 'block', // Fix IE 11 issue.
     marginLeft: theme.spacing.unit * 3,
     marginRight: theme.spacing.unit * 3,
@@ -26,8 +21,6 @@ const styles = theme => ({
       marginRight: 'auto',
     },
     width: '100%',
-    marginLeft: 0,
-    marginRight: 0,
   },
   paper: {
     marginTop: theme.spacing.unit * 9,

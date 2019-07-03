@@ -1,16 +1,12 @@
 import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 import red from '@material-ui/core/colors/red';
 
 import * as firebase from 'firebase';
-import { Grid, AppBar, Divider, TextField } from '@material-ui/core';
-import { blue, purple } from '@material-ui/core/colors';
+import { TextField } from '@material-ui/core';
 import Loading from './Loading';
 
 
@@ -130,9 +126,9 @@ class SingIn extends React.Component {
     }
     
     handleChange = event => {
-        if (event.target.name == "email") {
+        if (event.target.name=== "email") {
             this.setState({ email: event.target.value });
-        } else if (event.target.name == "password") {
+        } else if (event.target.name=== "password") {
             this.setState({ password: event.target.value });
         }
     }

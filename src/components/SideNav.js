@@ -4,7 +4,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import ArrowLeft from '@material-ui/icons/ArrowLeft';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
@@ -126,7 +126,7 @@ class SideNav extends React.Component {
                 onClick={this.handleDrawerToggle}
                 className={classes.menuButton}
               >
-                <MenuIcon />
+                <ArrowLeft />
               </IconButton>
               <Typography color="inherit"  className={classes.title} variant='h6'>{this.props.participant.displayName}</Typography>
               

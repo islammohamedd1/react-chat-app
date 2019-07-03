@@ -1,7 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import ChatMessage from './ChatMessage';
 import * as firebase from 'firebase';
 import { Fab } from '@material-ui/core';
@@ -24,12 +23,13 @@ const styles = theme => ({
 		[theme.breakpoints.up('sm')]: {
 			width: `calc(100% - ${drawerWidth}px)`,
 			right: 0,
+			// left: 0,
 		},
-		left: 0,
 		width: "100%",
 		position: 'fixed',
 		bottom: 0,
 		height: 70,
+		backgroundColor: theme.palette.background.default,
 	},
 	text: {
 		width: '75%',

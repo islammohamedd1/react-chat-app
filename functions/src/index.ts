@@ -15,22 +15,41 @@ exports.createChat = functions.firestore
 		const users = data.users;
         let userRef: any;
         let userSnapshot: any;
+        let unread = Object();
 		for (let i = 0; i < users.length; i++) {
 			userRef = snapshot.ref.parent.parent.collection('users').doc(users[i]);
 			userSnapshot = await userRef.get();
             if (userSnapshot.exists) {
                 const chats = userSnapshot.data().chats + 1;
+                unread[userSnapshot.data().uid] = 0;
                 await userRef.update({ chats });
             }	
 		}
+        await snapshot.ref.set({ unread }, { merge: true });
     });
     
 exports.newMessage = functions.firestore
     .document('chats/{chatId}/messages/{messageId}')
-    .onCreate((snapshot: any, context: any) => {
-        return snapshot.ref.set({
+    .onCreate(async (snapshot: any, context: any) => {
+        const sender = snapshot.data().from;
+        console.log("sender", sender);
+        const chatRef = snapshot.ref.parent.parent;
+        const chatSnapshot = await chatRef.get();
+        let unread = chatSnapshot.data().unread;
+
+        Object.keys(unread).map((k, i) => {
+            if (k !== sender) {
+                console.log("reciever:", k);
+                unread[k] = unread[k] + 1;
+                console.log(unread[k]);
+            };
+        });
+
+        await chatRef.set({ unread }, { merge: true });
+
+        await snapshot.ref.set({
             time: new Date(),
-        }, {merge: true});
+        }, { merge: true });
     });
 
 exports.newFreinds = functions.firestore

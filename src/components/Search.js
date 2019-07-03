@@ -1,11 +1,6 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import MenuList from '@material-ui/core/MenuList';
-import MenuItem from '@material-ui/core/MenuItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import PersonAddIcon from '@material-ui/icons/PersonAdd';
-import PersonIcon from '@material-ui/icons/Person';
 import TextField from '@material-ui/core/TextField';
 import * as firebase from 'firebase';
 import { List, ListItem, ListItemAvatar, Avatar } from '@material-ui/core';
@@ -62,20 +57,19 @@ class Search extends React.Component {
 
     searchUsers = search => {
         var user = firebase.auth().currentUser;
-        if (search.length == 0) {
-            results = [];
+        if (search.length === 0) {
+            let results = [];
             this.setState({results});
             return;
         }
         var searchRegex = new RegExp("(" + search + "[a-z ]).*", "gi");
         console.log(this.state.searches);
-            let results = this.state.searches.filter(u => (u.displayName.match(searchRegex) || u.email.match(searchRegex) || u.displayName == search || u.emaill == search) && u.email != user.email);
+            let results = this.state.searches.filter(u => (u.displayName.match(searchRegex) || u.email.match(searchRegex) || u.displayName === search || u.emaill === search) && u.email !== user.email);
             console.log(results);
             this.setState({results});
     }
 
     handleClick = friedId => {
-        console.log("triggered");
         this.props.toggleDrawer();
         this.props.addFriend(friedId);
 

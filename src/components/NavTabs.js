@@ -5,7 +5,6 @@ import AppBar from '@material-ui/core/AppBar';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
-import PersonIcon from '@material-ui/icons/Person';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MessagesList from './MessagesList';
 import SearchIcon from '@material-ui/icons/Search';

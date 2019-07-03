@@ -136,7 +136,6 @@ class Home extends React.Component {
 		const user = firebase.auth().currentUser;
 		const db = firebase.firestore();
 		if (!this.isFriend(friendId)) {
-			console.log("...........");
 			db.collection('friends').add({
 				users: [user.uid, friendId]
 			})
@@ -184,9 +183,21 @@ class Home extends React.Component {
 
 	setCurrentChat = chatID => {
 		if (this.state.currentChat !== chatID) {
-			this.setState({ currentChat: chatID }, () => {window.scrollTo(0, document.body.scrollHeight)})
+			this.setState({ currentChat: chatID }, () => {window.scrollTo(0, document.body.scrollHeight)});
+			this.setReadChat(chatID);
+
 		}
 	};
+
+	setReadChat = async chatID => {
+		const db = firebase.firestore();
+		const user = firebase.auth().currentUser;
+		const chatRef = db.doc(`chats/${chatID}`);
+		const chatSnapshot = await chatRef.get();
+		let unread = chatSnapshot.data().unread;
+		unread[user.uid] = 0;
+		await chatRef.set({ unread }, { merge: true });
+	}
 
 	getChat = chatId => {		
 		let chat = this.state.chats[chatId];
