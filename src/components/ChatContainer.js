@@ -23,8 +23,9 @@ const styles = theme => ({
 		[theme.breakpoints.up('sm')]: {
 			width: `calc(100% - ${drawerWidth}px)`,
 			right: 0,
-			// left: 0,
+			left: 'auto',
 		},
+		left: 0,
 		width: "100%",
 		position: 'fixed',
 		bottom: 0,
