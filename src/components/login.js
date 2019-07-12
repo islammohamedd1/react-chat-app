@@ -24,10 +24,7 @@ const styles = theme => ({
   },
   paper: {
     marginTop: theme.spacing.unit * 9,
-    display: 'flex',
     minHeight: '80vh',
-    flexDirection: 'column',
-    alignItems: 'left',
     padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
   },
   avatar: {
@@ -70,7 +67,7 @@ class Login extends React.Component {
     super(props);
 
     this.state = {
-      action: null,
+      action: 'up',
     }
 
     this.formRef = React.createRef();
@@ -123,10 +120,10 @@ class Login extends React.Component {
               <Typography variant="h2" className={classes.headline}>Welcome to the most awesome chat app</Typography>
               <Typography variant="h6" className={classes.subheading}>Enjoy chatting with your friends in a private, awesome and free chat app.</Typography>
               <a href="#form" className={classes.a}>
-                <Button variant="contained" color="primary" className={classes.btn} onClick={this.handleSignInAction}>Sign in</Button>
+                <Button variant="contained" color={this.state.action === 'in' ? 'primary' : 'default'} className={classes.btn} onClick={this.handleSignInAction}>Sign in</Button>
               </a>
               <a href="#form" className={classes.a}>
-                <Button variant="contained" className={classes.btn} onClick={this.handleSignUpAction}>Sign up</Button>
+                <Button variant="contained" color={this.state.action === 'up' ? 'primary' : 'default'} className={classes.btn} onClick={this.handleSignUpAction}>Sign up</Button>
               </a>
             </Grid>
             <Grid item sm={6} id="form">

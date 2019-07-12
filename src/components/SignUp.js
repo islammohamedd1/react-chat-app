@@ -13,7 +13,7 @@ import Loading from './Loading';
 const styles = theme => ({
     paper: {
         padding: theme.spacing.unit * 2,
-        background: theme.palette.primary.dark,
+        background: theme.palette.background.default,
         textAlign: "center",
     },
     header: {
@@ -181,7 +181,7 @@ class SignUp extends React.Component {
                 <Typography variant="h4" className={classes.header}>Sign Up</Typography>
                 <Typography variant="caption" className={this.state.error ? classes.error: classes.hidden}>{this.state.error}</Typography>
                 <form className={classes.form} onSubmit={this.handleFormSubmit}>
-                <Button variant="contained" fullWidth className={classes.fileButton} color="secondary">
+                <Button variant="contained" fullWidth className={classes.fileButton} color="primary">
                     <Typography variant="body1" className={classes.fullWidth}>{this.state.avatar ? this.state.avatar.name : "Select your profile picture"}</Typography>
                     <input
                         type="file"
@@ -189,7 +189,6 @@ class SignUp extends React.Component {
                         value={this.avatar}
                         onChange={this.handleChange}
                         className={classes.fileInput}
-
                         />
                 </Button>
                 <TextField
@@ -259,7 +258,7 @@ class SignUp extends React.Component {
                         }}
                         />
 
-                    <Button className={classes.btn} variant="contained" type="submit">Sign Up</Button>
+                    <Button className={classes.btn} color="primary" variant="contained" type="submit">Sign Up</Button>
                 </form>
             </Paper>
 

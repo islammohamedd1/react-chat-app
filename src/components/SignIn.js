@@ -13,7 +13,7 @@ import Loading from './Loading';
 const styles = theme => ({
     paper: {
         padding: theme.spacing.unit * 2,
-        background: theme.palette.primary.dark,
+        background: theme.palette.background.default,
         textAlign: "center",
     },
     header: {
@@ -187,7 +187,7 @@ class SingIn extends React.Component {
                         }}
                         />
 
-                    <Button className={classes.btn} variant="contained" type="submit">Sign In</Button>
+                    <Button className={classes.btn} color="primary" variant="contained" type="submit">Sign In</Button>
                 </form>
             </Paper>
             {this.renderLoading()}
